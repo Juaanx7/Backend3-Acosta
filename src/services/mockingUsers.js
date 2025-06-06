@@ -21,7 +21,7 @@ export const generateMockPets = (count) => {
     const pets = [];
     for (let i = 0; i < count; i++) {
         pets.push({
-            name: faker.animal.cat(), // O faker.animal.dog(), si querés variar
+            name: faker.animal.cat(),
             specie: faker.animal.type(),
             birthDate: faker.date.past(),
             adopted: faker.datatype.boolean()

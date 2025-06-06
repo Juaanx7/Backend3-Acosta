@@ -102,4 +102,32 @@ router.put('/:uid', usersController.updateUser);
  */
 router.delete('/:uid', usersController.deleteUser);
 
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Crear un nuevo usuario
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               first_name:
+ *                 type: string
+ *               last_name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuario creado
+ *       500:
+ *         description: Error al crear usuario
+ */
+router.post('/', usersController.createUser);
+router.get('/role/:role', usersController.getUsersByRole);
+
 export default router;
