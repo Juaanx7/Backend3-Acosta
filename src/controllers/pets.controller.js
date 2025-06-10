@@ -75,21 +75,54 @@ const createPetWithImage = async (req, res) => {
     const { name, specie, birthDate } = req.body;
 
     if (!name || !specie || !birthDate || !file) {
-      return res.status(400).json({ error: 'Valores o imagen incompletos' });
+      return res.status(400).send({ status: "error", error: "Valores incompletos o imagen faltante" });
     }
 
-    const pet = await petModel.create({
+    const pet = PetDTO.getPetInputFrom({
       name,
       specie,
       birthDate,
-      image: `${__dirname}/../public/img/${file.filename}`
+      image: `/img/${file.filename}`  // ruta relativa
     });
 
-    res.status(201).json({ status: "success", payload: pet });
+    const result = await petsService.create(pet);
+    res.send({ status: "success", payload: result });
+
   } catch (error) {
-    console.error('Error al crear mascota con imagen:', error.message);
-    res.status(500).json({ error: 'Error al crear mascota con imagen' });
+    console.error('Error al crear mascota con imagen:', error);
+    res.status(500).json({ status: "error", error: "Error al crear mascota con imagen" });
   }
+};
+
+//Obetener las mascotas adoptadas
+const getAdoptedPets = async (req, res) => {
+  try {
+    const adoptedPets = await petsService.getAdoptedPets();
+    res.status(200).json({ status: "success", payload: adoptedPets });
+  } catch (error) {
+    console.error("Error al obtener mascotas adoptadas:", error);
+    res.status(500).json({ status: "error", error: "Error al obtener mascotas adoptadas" });
+  }
+};
+
+//Marcar mascota como adoptada
+const markPetAsAdopted = async (req, res) => {
+  const { pid } = req.params;
+  try {
+    const result = await petsService.markAsAdopted(pid);
+    if (!result) {
+      return res.status(404).send({ status: 'error', error: 'Mascota no encontrada' });
+    }
+    res.send({ status: 'success', payload: result });
+  } catch (error) {
+    console.error('Error al marcar mascota como adoptada:', error.message);
+    res.status(500).send({ status: 'error', error: 'Error interno del servidor' });
+  }
+};
+
+const getPetById = async (pid) => {
+  const pet = await petsService.getById(pid);
+  return pet;
 };
 
 // Exportación final
@@ -98,5 +131,8 @@ export default {
   createPet,
   updatePet,
   deletePet,
-  createPetWithImage
+  createPetWithImage,
+  getAdoptedPets,
+  markPetAsAdopted,
+  getPetById
 };

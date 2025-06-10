@@ -9,6 +9,12 @@ import mocksRouter from './routes/mocks.router.js';
 
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpecs } from './swaggerConfig.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -22,5 +28,6 @@ app.use('/api/adoptions', adoptionsRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/mocks', mocksRouter);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 export default app;

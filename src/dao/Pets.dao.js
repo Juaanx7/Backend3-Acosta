@@ -21,4 +21,15 @@ export default class Pet {
     delete = (id) =>{
         return petModel.findByIdAndDelete(id);
     }
+
+    getAdoptedPets = () => {
+        return petModel.find({ adopted: true });
+    }
+    markAsAdopted = async (petId) => {
+        return await petModel.findByIdAndUpdate(petId, { adopted: true }, { new: true });
+    };
+    getById = (id) => {
+        return petModel.findById(id);
+    }
+
 }
