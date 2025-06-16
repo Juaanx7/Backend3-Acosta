@@ -1,62 +1,72 @@
-# Preentrega 1 - Backend 3
+# Entrega final - Backend 3
 
-Este proyecto es la primera preentrega de **Backend 3** del curso de Desarrollador Web Full Stack.
-
-## 💻 Descripción
-
-Se trabajó sobre el proyecto base, agregando un router específico para generación de datos mock y pruebas de inserción en base de datos.
+Este es el proyecto final de la cursada **Backend 3** en CoderHouse, donde se aplican conceptos avanzados de desarrollo backend utilizando **Node.js**, **Express**, **MongoDB**, **Swagger**, **DTOs**, **DAOs**, **Repository Pattern**, y más.
 
 ---
 
-## 🔧 Funcionalidades implementadas
+## 🚀 Tecnologías utilizadas
 
-- Creación del router `mocks.router.js` bajo la ruta base `/api/mocks`.
-- Generación de 50 usuarios simulados mediante el endpoint GET `/mockingusers`.
-- Implementación del módulo de Mocking:
-  - Contraseña encriptada (`coder123`).
-  - Rol random (`user` / `admin`).
-  - Pets vacío.
-- Generación y almacenamiento en MongoDB mediante POST `/generateData`:
-  - Inserción de usuarios y mascotas según parámetros enviados en el body.
-- Verificación de registros mediante los endpoints GET de `users` y `pets`.
-
----
-
-## ⚙ Cómo correr el proyecto
-
-1. Clonar el repositorio:
-    - git clone https://github.com/CoderContenidos/RecursosBackend-Adoptme.git
-
-
-2. Instalar dependencias:
-    - npm install
-
-
-3. Configurar la conexión a MongoDB en `src/app.js`:
-    - const connection = mongoose.connect('mongodb+srv://<user>:<password>@<cluster>.mongodb.net/adoptme?retryWrites=true&w=majority');
-
-
-4. Correr el servidor:
-    - npm run dev
-
+- Node.js
+- Express
+- MongoDB + Mongoose
+- Multer (carga de imágenes)
+- Swagger (documentación)
+- Docker (opcional)
+- Postman (testing de endpoints)
+- JavaScript ESModules
 
 ---
 
-## 🔥 Endpoints disponibles
+## 📁 Estructura del proyecto
 
-- **GET** `/api/mocks/mockingusers` → Devuelve 50 usuarios simulados.
-- **POST** `/api/mocks/generateData` → Inserta usuarios y mascotas en base.
-- Body (JSON):
- ```json
- {
-   "users": 10,
-   "pets": 5
- }
- ```
-- **GET** `/api/users` → Lista de usuarios.
-- **GET** `/api/pets` → Lista de mascotas.
+```bash
+src/
+│
+├── controllers/
+├── dao/
+├── dto/
+├── middlewares/
+├── models/
+├── public/               # Imágenes subidas por usuarios
+├── routes/
+├── services/
+├── utils/
+├── app.js
+└── server.js
 
 ---
+
+🔧 Cómo instalar y correr el proyecto
+
+Clonar el repositorio:
+git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+cd TU_REPOSITORIO
+
+Instalar dependencias:
+npm install
+
+Crear un archivo .env con tu conexión a MongoDB Atlas o local:
+PORT=8080
+MONGO_URL=mongodb+srv://usuario:password@cluster.mongodb.net/nombreDB
+
+Ejecutar el servidor:
+npm run dev
+📘 Documentación de la API
+
+Una vez iniciado el servidor, podés acceder a la documentación Swagger en:
+http://localhost:8080/api/docs
+
+🧪 Funcionalidades implementadas
+Gestión completa de usuarios (CRUD)
+Gestión de mascotas (CRUD)
+Relación entre usuarios y mascotas
+Subida de imágenes de mascotas
+Endpoint para obtener mascotas adoptadas
+Endpoint para marcar una mascota como adoptada
+Documentación Swagger de todos los endpoints
+Uso de DTOs para estructura de datos
+Arquitectura profesional con DAO / Repository / Service
+
 
 ## 👤 Autor
 
