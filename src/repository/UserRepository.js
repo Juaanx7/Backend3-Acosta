@@ -13,5 +13,8 @@ export default class UserRepository extends GenericRepository{
     }
     getUsersByRole = async (role) => {
     return await this.dao.getUsersByRole(role);
-    }    
+    }
+    getUsersWithPets = () => {
+        return this.dao.getUsersWithPets();
+    }
 }

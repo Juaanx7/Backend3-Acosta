@@ -1,5 +1,6 @@
 import { usersService } from "../services/index.js";
 import userModel from '../dao/models/User.js';
+import petModel from "../dao/models/Pet.js";
 
 const createUser = async (req, res) => {
   try {
@@ -48,11 +49,43 @@ const deleteUser = async (req, res) => {
   res.send({ status: "success", message: "User deleted" });
 };
 
+const getUsersWithPets = async (req, res) => {
+  try {
+    const users = await usersService.getUsersWithPets();
+    res.status(200).json({ status: 'success', payload: users });
+  } catch (error) {
+    console.error('Error al obtener usuarios con mascotas:', error.message);
+    res.status(500).json({ status: 'error', error: 'Error al obtener usuarios con mascotas' });
+  }
+};
+
+const getUserPets = async (req, res) => {
+  try {
+    const { uid } = req.params;
+
+    // Verificamos si el usuario existe
+    const user = await userModel.findById(uid);
+    if (!user) {
+      return res.status(404).json({ status: "error", error: "Usuario no encontrado" });
+    }
+
+    // Buscamos las mascotas cuyo owner coincida con el uid
+    const pets = await petModel.find({ owner: uid });
+
+    res.status(200).json({ status: "success", payload: pets });
+  } catch (error) {
+    console.error("Error al obtener mascotas del usuario:", error);
+    res.status(500).json({ status: "error", error: "Error interno al obtener mascotas" });
+  }
+};
+
 export default {
   deleteUser,
   getAllUsers,
   getUser,
   updateUser,
   createUser,
-  getUsersByRole
+  getUsersByRole,
+  getUsersWithPets,
+  getUserPets
 };

@@ -25,4 +25,8 @@ export default class Users {
     getUsersByRole = (role) => {
         return userModel.find({ role });
     }
+
+    getUsersWithPets = () => {
+        return userModel.find().populate('pets');
+    }
 }

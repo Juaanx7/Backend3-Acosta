@@ -3,6 +3,32 @@ import usersController from '../controllers/users.controller.js';
 
 const router = Router();
 
+router.post('/', usersController.createUser);
+router.get('/role/:role', usersController.getUsersByRole);
+router.get('/withpets', usersController.getUsersWithPets);
+
+/**
+ * @swagger
+ * /api/users/{uid}/pets:
+ *   get:
+ *     summary: Obtener las mascotas de un usuario
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: uid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Lista de mascotas del usuario
+ *       404:
+ *         description: Usuario no encontrado
+ */
+
+router.get('/:uid/pets', usersController.getUserPets);
+
 /**
  * @swagger
  * tags:
@@ -127,7 +153,5 @@ router.delete('/:uid', usersController.deleteUser);
  *       500:
  *         description: Error al crear usuario
  */
-router.post('/', usersController.createUser);
-router.get('/role/:role', usersController.getUsersByRole);
 
 export default router;
